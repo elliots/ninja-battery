@@ -10,5 +10,6 @@
   "author": "Elliot Shepherd",
   "license": "MIT",
   "dependencies": {
-  }
+  },
+  "os" : ["darwin"]
 }
