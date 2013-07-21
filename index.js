@@ -26,19 +26,26 @@ function Device(app) {
   this.name = 'Battery - ' + require('os').hostname();
 
   setInterval(function() {
-    self.emitTemperature();
+    self.emitValue();
   }, 30000);
-  this.emitTemperature();
+  this.emitValue();
 
 }
 
-Device.prototype.emitTemperature = function() {
+Device.prototype.emitValue = function() {
   var self = this;
   exec('ioreg -l | grep -i LegacyBatteryInfo', function(error, stdout, stderr) {
     if (!error && !stderr) {
-      var current = parseInt(stdout.match(/Current"=(\d+)/)[1], 10);
-      var capacity = parseInt(stdout.match(/Capacity"=(\d+)/)[1], 10);
-      self.emit('data', current / capacity * 100);
+      var data = stdout.replace(/=/g,':').toLowerCase();
+
+      data = JSON.parse(data.substr(data.indexOf('{')));
+      data.value = data.current / data.capacity * 100;
+      data.charging = (data.flags == 7);
+      data.cycleCount = data['cycle count'];
+
+      delete(data['cycle count']);
+      delete(data.flags);
+      self.emit('data', data);
     }
 
   });
