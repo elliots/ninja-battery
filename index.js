@@ -21,7 +21,7 @@ function Device(app) {
   this.writeable = false;
   this.readable = true;
   this.V = 0;
-  this.D = 8;
+  this.D = 551;
   this.G = 'Battery';
   this.name = 'Battery - ' + require('os').hostname();
 
