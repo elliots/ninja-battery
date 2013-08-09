@@ -1,7 +1,7 @@
 {
   "name": "ninja-battery",
   "version": "1.0.0",
-  "description": "A ninjablock driver to check your mac's battery",
+  "description": "NinjaBlocks Battery driver (Mac)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
